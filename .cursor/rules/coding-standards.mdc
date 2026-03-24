@@ -1,0 +1,31 @@
+---
+description: Global coding standards for safe and maintainable delivery
+alwaysApply: true
+---
+
+# Coding Standards
+
+Apply these standards across tasks unless the user explicitly asks otherwise.
+
+## Core Principles
+- Prefer simple, readable solutions over clever complexity.
+- Keep changes scoped to the requested goal.
+- Do not modify unrelated files.
+- Preserve existing architecture and naming conventions.
+
+## Code Quality
+- Use clear function and variable names with consistent style.
+- Add small, meaningful comments only when logic is non-obvious.
+- Handle error paths explicitly; avoid silent failures.
+- Validate external input at boundaries (API, form, file, env).
+
+## Safety and Reliability
+- Avoid hardcoded secrets, tokens, and environment-specific values.
+- Keep backward compatibility unless user approves breaking changes.
+- Add or update tests for behavior changes when practical.
+- Include fallback handling for network or service failures.
+
+## Delivery Hygiene
+- Explain what changed, why, and potential impact.
+- List verification steps or commands used for validation.
+- Call out remaining risks and recommended next step.

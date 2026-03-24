@@ -1,0 +1,32 @@
+---
+description: Global pre-release checklist for full-stack website changes
+alwaysApply: true
+---
+
+# Release Checklist
+
+Use this checklist before declaring a task ready for release.
+
+## Build and Test
+- Project installs and builds successfully.
+- Critical user flows are tested (happy path + key edge cases).
+- Regression checks completed for touched modules.
+- No new lint/type errors in changed files.
+
+## Configuration and Environment
+- Required environment variables are documented and present.
+- Production URLs, callback URLs, and API keys are verified.
+- Database migrations are reviewed for safety and rollback plan.
+- Third-party service dependencies are reachable and healthy.
+
+## Runtime Readiness
+- Logging is present for critical failures.
+- Basic monitoring/alert signal is available for core paths.
+- Error states show actionable messages (not raw stack traces).
+- Performance is acceptable for primary pages and APIs.
+
+## Rollout and Recovery
+- Deployment steps are documented and repeatable.
+- Rollback strategy is defined for this release.
+- Known risks and mitigations are explicitly listed.
+- Post-release smoke test checklist is ready.

@@ -1,0 +1,40 @@
+---
+description: Global 4-role agent workflow for full-stack website delivery
+alwaysApply: true
+---
+
+# 4-Role Agent Team Workflow
+
+Use this role split by default for full-stack website tasks unless the user asks for another setup.
+
+## Role 1: PM/Architecture Agent
+- Clarify goals, define scope, and break down milestones.
+- Decide API boundaries, data contracts, and acceptance criteria.
+- Resolve conflicts between speed, quality, and maintainability.
+
+## Role 2: Frontend Agent
+- Implement UI, interactions, state flows, and accessibility basics.
+- Keep components reusable and aligned with design requirements.
+- Verify loading, error, and empty states before handoff.
+
+## Role 3: Backend Agent
+- Implement APIs, DB schema changes, auth, and business logic.
+- Prioritize data integrity, input validation, and observability.
+- Provide clear API examples for frontend integration.
+
+## Role 4: QA/Test Agent
+- Create test scenarios for core flow and edge cases.
+- Validate regressions for changed modules.
+- Report risk levels and concrete reproduction steps.
+
+## Collaboration Protocol
+- Start from PM/Architecture plan for medium/large tasks.
+- Frontend and Backend can run in parallel once interfaces are stable.
+- QA validates merged result before final delivery.
+- Keep each handoff concise: assumptions, changed files, test status, known risks.
+
+## Default Output Format
+- Plan: task breakdown, dependencies, owner role.
+- Implementation: what changed and why.
+- Verification: tests run, expected vs actual.
+- Risks: open issues and next action.

@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  passwordHash        String
+  name                String?
+  role                String               @default("buyer") // buyer | admin
+  createdAt           DateTime             @default(now())
+  orders              Order[]
+  addresses           Address[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+/// 一次性密码重置链接（过期后不可用）
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  price           Float
+  originalPrice   Float?
+  image           String
+  images          String?  // JSON array
+  category        String
+  brandId         String
+  characterId     String?
+  description     String
+  inStock         Boolean  @default(true)
+  preorder        Boolean  @default(false)
+  preorderEndDate String?
+  scale           String?
+  material        String?
+  height          String?
+  nameI18n        String?  // JSON: { en, zh? }
+  descriptionI18n String?  // JSON
+  variations      String?  // JSON: ProductVariation[]
+  domesticOnly    Boolean  @default(true)
+  source          String   @default("custom") // default | custom
+  createdAt       DateTime @default(now())
+}
+
+model Order {
+  id                      String      @id @default(cuid())
+  userId                  String
+  user                    User        @relation(fields: [userId], references: [id])
+  status                  String      @default("pending") // pending | paid | shipped | delivered
+  total                   Float
+  shippingName            String
+  shippingPhone           String
+  shippingAddress         String
+  trackingNumber          String?
+  carrier                 String?
+  /// Stripe Checkout Session id — 用于 Webhook 幂等
+  stripeCheckoutSessionId String?     @unique
+  createdAt               DateTime    @default(now())
+  items                   OrderItem[]
+}
+
+model OrderItem {
+  id              String   @id @default(cuid())
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId       String
+  quantity        Int
+  variantSnapshot String?  // JSON: SelectedVariant
+  priceAtPurchase Float
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  phone     String
+  address   String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+

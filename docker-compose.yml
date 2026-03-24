@@ -1,0 +1,18 @@
+# Local / CI-adjacent PostgreSQL for migrate + seed + next build.
+# Usage: docker compose up -d
+# Then: set DATABASE_URL=postgresql://printfig:devlocal@127.0.0.1:5432/printfig
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: printfig
+      POSTGRES_PASSWORD: devlocal
+      POSTGRES_DB: printfig
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U printfig -d printfig"]
+      interval: 5s
+      timeout: 5s
+      retries: 10

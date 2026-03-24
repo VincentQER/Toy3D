@@ -1,0 +1,17 @@
+node_modules
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+# Keep environment variables out of version control
+.env
+
+/src/generated/prisma
+
+# Legacy local SQLite (optional); app targets PostgreSQL — see docs/POSTGRES-MIGRATION.md
+prisma/ci.sqlite
+
+# Local portable PostgreSQL / large zips (optional dev; see docs/POSTGRES-MIGRATION.md § Windows)
+.tools/
